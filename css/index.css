@@ -140,6 +140,28 @@
             font-weight: 700;
             color: var(--light);
         }
+        @media (max-width: 1024px) {
+            .logo-text {
+                font-size: 1.8rem;
+            }
+            .logo-img {
+            width: 55px;
+            height: 55px;
+            }
+            .cta-button {
+            padding: 7px 14px; }
+        }
+        @media (max-width: 912px) {
+            .logo-text {
+                font-size: 1.1rem;
+            }
+            .logo-img {
+            width: 37px;
+            height: 37px;
+            }
+            .cta-button {
+            padding: 5px 10px; }
+        }
 
         .logo-text span {
             color: var(--accent);
@@ -976,7 +998,7 @@
             }
         }
 
-        @media (max-width: 820px) {
+        @media (max-width: 853px) {
             .hamburger {
                 display: block;
             }

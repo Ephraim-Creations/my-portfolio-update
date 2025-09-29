@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eBooks | Ephraim Works</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/portfolio.css">
+    <link rel="stylesheet" href="/css/about.css">
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+</head>
+<body>
+        <!-- Background Animation -->
+    <div class="bg-animation" id="bgAnimation"></div>
+    <!-- Header (reused from home) -->
+    <header id="header">
+        <div class="container header-container">
+            <a href="/" class="logo">
+                <div class="logo-img">
+                    <img src="/images/favicon.png" alt="Ephraim Works Logo">
+                </div>
+                <div class="logo-text">Ephraim <span>Works</span></div>
+            </a>
+            <button class="hamburger" id="hamburger">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="/">Home</a></li>
+                <li><a href="/about/" class="active">About</a></li>
+                <li><a href="/services/">Services</a></li>
+                <li><a href="/portfolio/">Portfolio</a></li>
+                <li><a href="/eBooks/">eBooks</a></li>
+                <li><a href="/blog/">Blog</a></li>
+                <li><a href="/contact/" class="cta-button">Start Project</a></li>
+            </ul>
+        </div>
+    </header>
+
+
+        <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-col" data-aos="fade-up" data-aos-duration="800">
+                    <h3>Ephraim Works</h3>
+                    <p>Engineering digital excellence through strategic technology solutions.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-dribbble"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+                    <h3>Navigation</h3>
+                    <ul>
+                        <li><a href="#home"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="#about"><i class="fas fa-chevron-right"></i> Expertise</a></li>
+                        <li><a href="#portfolio"><i class="fas fa-chevron-right"></i> Portfolio</a></li>
+                        <li><a href="#blog"><i class="fas fa-chevron-right"></i> Insights</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Web Development</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Mobile Applications</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> System Architecture</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Technical Consulting</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col" data-aos="fade-up" data-aos-duration="800" data-aos-delay="300">
+                    <h3>Connect</h3>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-envelope"></i> hello@ephraimworks.com</a></li>
+                        <li><a href="#"><i class="fas fa-phone"></i> +1 (555) 123-4567</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Global Remote</a></li>
+                        <li><a href="#"><i class="fas fa-calendar-alt"></i> Schedule Consultation</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright" data-aos="fade-up" data-aos-duration="800">
+                <p>&copy; 2023 Ephraim Works. All rights reserved. | Crafted with precision and passion</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Button -->
+    <div class="whatsapp-button" id="whatsappButton" >
+        <i class="fab fa-whatsapp"></i>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" id="leadModal">
+        <div class="modal-content" data-aos="zoom-in" data-aos-duration="500">
+            <span class="close-modal" id="closeModal">&times;</span>
+            <h2>Start Your Project</h2>
+            <form id="leadForm">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" class="form-control" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group">
+                    <label for="service">Project Requirements</label>
+                    <select id="service" class="form-control" required>
+                        <option value="">Select your project needs</option>
+                        <option value="web-development">Web Application Development</option>
+                        <option value="mobile-app">Mobile Application</option>
+                        <option value="ui-ux">UI/UX Design</option>
+                        <option value="system-architecture">System Architecture</option>
+                        <option value="consulting">Technical Consulting</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="message">Project Details</label>
+                    <textarea id="message" class="form-control" rows="4" placeholder="Describe your project requirements, timeline, and budget"></textarea>
+                </div>
+                <button type="submit" class="cta-button" style="width: 100%;">Send Project Brief</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="/js/index.js" defer></script>
+    <script src="/js/about.js" defer></script>
+
+</body>
+</html>
