@@ -61,7 +61,7 @@
             const whatsappMessage = `New Project Inquiry%0A%0AName: ${name}%0AService: ${serviceText}%0AProject Details: ${message || 'No additional details provided'}`;
             
             // Open WhatsApp with pre-filled message
-            window.open(`https://wa.me/15551234567?text=${whatsappMessage}`, '_blank');
+            window.open(`https://wa.me/254112268873?text=${whatsappMessage}`, '_blank');
             
             // Close modal and reset form
             leadModal.style.display = 'none';

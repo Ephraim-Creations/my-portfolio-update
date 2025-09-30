@@ -944,7 +944,7 @@
             background-color: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 8px;
-            color: var(--light);
+            color: var(--primary);
             font-family: 'Inter', sans-serif;
             font-size: 1rem;
             transition: all 0.3s;
@@ -1003,7 +1003,7 @@
                 display: block;
             }
 
-            .nav-menu {
+         /*   .nav-menu {
                 position: fixed;
                 top: var(--header-height);
                 right: -100%;
@@ -1016,7 +1016,24 @@
                 padding-top: 60px;
                 transition: right 0.4s ease;
                 box-shadow: -5px 0 30px rgba(0, 0, 0, 0.2);
-            }
+            }   */
+
+               .nav-menu {
+    position: fixed;
+    top: var(--header-shrink-height); /* start just below header */
+    right: -100%;
+    width: 80%;
+    height: calc(100vh - var(--header-shrink-height)); /* fill the rest of screen */
+    background-color:#0f172af5;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    transition: right 0.4s ease, top 0.3s ease;
+    box-shadow: -5px 0 30px rgba(0, 0, 0, 0.2);
+    z-index: 1002;
+    padding-top: 60px; /* spacing inside the menu */
+}
+
 
             .nav-menu.active {
                 right: 0;
@@ -1064,4 +1081,30 @@
                 width: 40px;
                 height: 40px;
             }
+         /*portfolio responsive*/
+           .portfolio-grid {
+            justify-content: center;
+            }
+
+           .portfolio-item {
+            width: 90%;
+            margin: 0 auto;
+           }
+           /*blog*/
+           .blog-grid {
+            justify-content: center;
+            width: 100%; 
+            }
+        .blog-card {
+            width: 90%;
+            margin: 0 auto;
+        }
+        .reviews-container {
+            width: 100%; 
+            margin: 0 auto;
+        }
+        .review-card {
+            padding: 30px 20px;
+            margin: 0 auto;
+        }
         }
