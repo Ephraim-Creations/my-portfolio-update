@@ -66,6 +66,7 @@
     gap: 15px;
 }
 
+
 .filter-btn {
     background: transparent;
     border: 2px solid var(--primary);
@@ -459,7 +460,8 @@
     }
     
     .portfolio-stats {
-        flex-direction: column;
+        flex-direction: row;
+        flex-wrap: wrap;
         gap: 30px;
     }
     
@@ -480,12 +482,18 @@
 
 @media (max-width: 480px) {
     .portfolio-hero-content h1 {
-        font-size: 2rem;
+        font-size: 1.4rem;
     }
+
     
     .filter-buttons {
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
+        gap: 5px;
+    }
+    .filter-btn {
+        padding: 5px 8px;
+        font-size:12px;
     }
     
     .project-results {
