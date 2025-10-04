@@ -27,46 +27,7 @@
             }
         });
 
-        // WhatsApp Modal
-        const whatsappButton = document.getElementById('whatsappButton');
-        const leadModal = document.getElementById('leadModal');
-        const closeModal = document.getElementById('closeModal');
 
-        whatsappButton.addEventListener('click', () => {
-            leadModal.style.display = 'flex';
-        });
-
-        closeModal.addEventListener('click', () => {
-            leadModal.style.display = 'none';
-        });
-
-        window.addEventListener('click', (e) => {
-            if (e.target === leadModal) {
-                leadModal.style.display = 'none';
-            }
-        });
-
-        // Form Submission
-        const leadForm = document.getElementById('leadForm');
-
-        leadForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            const name = document.getElementById('name').value;
-            const service = document.getElementById('service').value;
-            const message = document.getElementById('message').value;
-            
-            // Format the message for WhatsApp
-            const serviceText = document.querySelector(`#service option[value="${service}"]`).textContent;
-            const whatsappMessage = `New Project Inquiry%0A%0AName: ${name}%0AService: ${serviceText}%0AProject Details: ${message || 'No additional details provided'}`;
-            
-            // Open WhatsApp with pre-filled message
-            window.open(`https://wa.me/254112268873?text=${whatsappMessage}`, '_blank');
-            
-            // Close modal and reset form
-            leadModal.style.display = 'none';
-            leadForm.reset();
-        });
 
         // Background Animation
         const bgAnimation = document.getElementById('bgAnimation');
@@ -123,3 +84,33 @@
             el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
             observer.observe(el);
         });
+
+
+        
+//back to TOP
+  const backToTopBtn = document.getElementById("backToTop");
+  let hideTimer;
+
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 200) {
+      backToTopBtn.classList.add("show");
+
+      // Reset hide timer
+      clearTimeout(hideTimer);
+      hideTimer = setTimeout(() => {
+        backToTopBtn.classList.remove("show");
+      }, 5000);
+    } else {
+      backToTopBtn.classList.remove("show");
+    }
+  });
+
+  backToTopBtn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+
+  //Animations
+    AOS.init({
+    once: false,  // keep animating when scrolling
+    mirror: true  // animate out as well
+  });

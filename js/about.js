@@ -1,11 +1,11 @@
 // AOS Initialization
-document.addEventListener('DOMContentLoaded', function () {
+//document.addEventListener('DOMContentLoaded', function () {
     // Initialize AOS
-    AOS.init({
-        duration: 1000,
-        once: true,
-        offset: 100
-    });
+  //  AOS.init({
+  //      duration: 1000,
+  //      once: true,
+  //      offset: 100
+  //  });
 
     // Counters setup (added suffix)
     const counters = [
@@ -64,4 +64,5 @@ document.addEventListener('DOMContentLoaded', function () {
 
         observer.observe(statsSection);
     }
-});
+            
+
