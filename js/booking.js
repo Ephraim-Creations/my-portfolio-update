@@ -1,4 +1,4 @@
-// Enhanced Booking Form with Better UX
+// Enhanced Booking Form with Background Submission
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize AOS
     if (typeof AOS !== 'undefined') {
@@ -14,6 +14,25 @@ document.addEventListener('DOMContentLoaded', function() {
     const btnText = submitBtn.querySelector('.btn-text');
     const btnLoading = submitBtn.querySelector('.btn-loading');
     const formControls = document.querySelectorAll('.form-control');
+    const formWrapper = document.querySelector('.form-wrapper');
+
+    // Create success message element
+    const successMessage = document.createElement('div');
+    successMessage.className = 'success-message';
+    successMessage.innerHTML = `
+        <div class="success-content">
+            <i class="fas fa-check-circle"></i>
+            <div class="success-text">
+                <h3>Reservation Received Successfully!</h3>
+                <p>Your reservation has been received. We will process it and get in touch with you after approval.</p>
+                <p class="success-note"><small>You should receive a confirmation message on WhatsApp shortly.</small></p>
+            </div>
+            <button class="cta-button success-btn" onclick="location.reload()">
+                <i class="fas fa-plus"></i> Make Another Reservation
+            </button>
+        </div>
+    `;
+    formWrapper.appendChild(successMessage);
 
     // Enhanced form validation
     function validateField(field) {
@@ -88,6 +107,46 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    // Function to submit to WhatsApp - More reliable method
+    function submitToWhatsApp(formData) {
+        return new Promise((resolve) => {
+            try {
+                const whatsappMessage = `New Project Reservation%0A%0A` +
+                    `👤 Name: ${formData.name}%0A` +
+                    `📧 Email: ${formData.email}%0A` +
+                    `📞 Phone: ${formData.phone || 'Not provided'}%0A` +
+                    `🛠️ Service: ${formData.serviceText}%0A` +
+                    `💰 Budget: ${formData.budgetText}%0A` +
+                    `⏰ Timeline: ${formData.timelineText}%0A` +
+                    `📋 Project Details: ${formData.message || 'No additional details provided'}`;
+
+                // Method 1: Try opening in new tab (most reliable)
+                const newWindow = window.open(`https://wa.me/254112268873?text=${whatsappMessage}`, '_blank');
+                
+                // If popup blocked, use method 2
+                if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+                    // Method 2: Create temporary link and click it
+                    const tempLink = document.createElement('a');
+                    tempLink.href = `https://wa.me/254112268873?text=${whatsappMessage}`;
+                    tempLink.target = '_blank';
+                    tempLink.style.display = 'none';
+                    document.body.appendChild(tempLink);
+                    tempLink.click();
+                    document.body.removeChild(tempLink);
+                }
+
+                // Give it a moment to open
+                setTimeout(() => {
+                    resolve(true);
+                }, 500);
+
+            } catch (error) {
+                console.error('Error submitting to WhatsApp:', error);
+                resolve(false);
+            }
+        });
+    }
+
     // Enhanced form submission
     projectForm.addEventListener('submit', async function(e) {
         e.preventDefault();
@@ -104,9 +163,10 @@ document.addEventListener('DOMContentLoaded', function() {
             // Scroll to first invalid field
             const firstInvalid = document.querySelector('.form-control.invalid');
             if (firstInvalid) {
-                firstInvalid.scrollIntoView({ 
-                    behavior: 'smooth', 
-                    block: 'center' 
+                const invalidPosition = firstInvalid.getBoundingClientRect().top + window.pageYOffset;
+                window.scrollTo({
+                    top: invalidPosition - 100,
+                    behavior: 'smooth'
                 });
                 firstInvalid.focus();
             }
@@ -116,7 +176,8 @@ document.addEventListener('DOMContentLoaded', function() {
         // Show loading state
         submitBtn.classList.add('loading');
         btnText.style.display = 'none';
-        btnLoading.style.display = 'inline-block';
+        btnLoading.style.display = 'flex';
+        btnLoading.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing your reservation...';
         submitBtn.disabled = true;
 
         // Get form data
@@ -136,47 +197,56 @@ document.addEventListener('DOMContentLoaded', function() {
         };
 
         try {
-            // Format WhatsApp message
-            const whatsappMessage = `New Project Inquiry%0A%0A` +
-                `👤 Name: ${formData.name}%0A` +
-                `📧 Email: ${formData.email}%0A` +
-                `📞 Phone: ${formData.phone || 'Not provided'}%0A` +
-                `🛠️ Service: ${formData.serviceText}%0A` +
-                `💰 Budget: ${formData.budgetText}%0A` +
-                `⏰ Timeline: ${formData.timelineText}%0A` +
-                `📋 Project Details: ${formData.message || 'No additional details provided'}`;
-
-            // Show success state
-            submitBtn.style.background = 'var(--success)';
-            btnLoading.textContent = 'Success! Opening WhatsApp...';
+            // Show processing state
+            submitBtn.style.background = 'var(--primary)';
             
-            // Small delay for better UX
-            await new Promise(resolve => setTimeout(resolve, 1000));
+            // Simulate processing delay for better UX
+            await new Promise(resolve => setTimeout(resolve, 2000));
             
-            // Open WhatsApp
-            window.open(`https://wa.me/254112268873?text=${whatsappMessage}`, '_blank');
+            // Submit to WhatsApp
+            const whatsappSuccess = await submitToWhatsApp(formData);
             
-            // Reset form after delay
-            setTimeout(() => {
-                projectForm.reset();
-                submitBtn.classList.remove('loading');
-                submitBtn.style.background = '';
-                submitBtn.disabled = false;
-                btnText.style.display = 'inline-block';
-                btnLoading.style.display = 'none';
+            if (whatsappSuccess) {
+                // Show success state
+                submitBtn.style.background = 'var(--success)';
+                btnLoading.innerHTML = '<i class="fas fa-check"></i> Reservation Successful!';
                 
-                // Reset border colors
-                formControls.forEach(control => {
-                    control.style.borderColor = 'rgba(255, 255, 255, 0.1)';
-                });
-            }, 2000);
+                // Wait a moment then show success
+                setTimeout(() => {
+                    // Hide the form and show success message
+                    projectForm.style.display = 'none';
+                    successMessage.style.display = 'block';
+                    
+                    // Scroll to top of form wrapper to show success message
+                    formWrapper.scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'start' 
+                    });
+
+                    // Reset form but keep it hidden
+                    projectForm.reset();
+                    submitBtn.classList.remove('loading');
+                    submitBtn.style.background = '';
+                    submitBtn.disabled = false;
+                    btnText.style.display = 'inline-block';
+                    btnLoading.style.display = 'none';
+                    
+                    // Reset border colors
+                    formControls.forEach(control => {
+                        control.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+                    });
+                }, 1000);
+                
+            } else {
+                throw new Error('Failed to submit to WhatsApp');
+            }
             
         } catch (error) {
             console.error('Error submitting form:', error);
             
             // Show error state
             submitBtn.style.background = '#ef4444';
-            btnLoading.textContent = 'Error! Try Again';
+            btnLoading.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Error! Please try the WhatsApp link below';
             submitBtn.disabled = false;
             
             setTimeout(() => {
@@ -184,7 +254,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 submitBtn.style.background = '';
                 btnText.style.display = 'inline-block';
                 btnLoading.style.display = 'none';
-            }, 3000);
+                btnLoading.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+            }, 4000);
         }
     });
 
